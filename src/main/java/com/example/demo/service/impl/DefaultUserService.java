@@ -19,7 +19,8 @@ public class DefaultUserService implements UserService {
     public List<User> getAllUsers() {
         return getMockUsers();
     }
-
+    
+    // Indica la configuración de cache creada en CacheManagerConfig.
     @Cacheable(USER_CACHE)
     private List<User> getMockUsers() {
         return IntStream.range(0, 1000).mapToObj(i -> new User(i, UUID.randomUUID().toString(), UUID.randomUUID().toString()))

@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Configuration
+// Establece que la caché utilizará AspectJ
 @EnableCaching(mode = AdviceMode.ASPECTJ)
 public class CacheManagerConfig {
 
@@ -21,7 +22,10 @@ public class CacheManagerConfig {
     @Bean
     public CacheManager cacheManager() {
         SimpleCacheManager cacheManager = new SimpleCacheManager();
-
+        
+        // Configuracion de la cache, se establece tamaño maximo en cantidad de entradas,
+        // tiempo de expiracion.
+        // La configuración de cache debe heredar de CacheManager
         CaffeineCache userCache = new CaffeineCache(USER_CACHE, Caffeine.newBuilder()
                 .maximumSize(1000)
                 .expireAfterWrite(30, TimeUnit.MINUTES)
